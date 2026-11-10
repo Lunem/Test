@@ -1,0 +1,46 @@
+---
+import Window from './Window.astro';
+interface Props { class?: string }
+const { class: cls } = Astro.props;
+const tiles = ['circle', 'tri', 'bars', 'ring', 'blob', 'grid'];
+---
+<Window title="localhost:4321" class={cls}>
+  <div class="site" aria-hidden="true">
+    <div class="top">
+      <span class="name">Studio Mila</span>
+      <span class="nav"><i>Projets</i><i>À propos</i><b>◐</b></span>
+    </div>
+    <p class="hello">Bonjour, je dessine des <em>affiches</em><br />et des interfaces.</p>
+    <div class="grid">
+      {tiles.map((t) => (
+        <div class:list={['tile', t]}>
+          <svg viewBox="0 0 60 40">
+            {t === 'circle' && <circle cx="30" cy="20" r="11" />}
+            {t === 'tri' && <path d="M30 8l13 24H17z" />}
+            {t === 'bars' && <g><rect x="16" y="22" width="6" height="10" rx="1"/><rect x="27" y="14" width="6" height="18" rx="1"/><rect x="38" y="9" width="6" height="23" rx="1"/></g>}
+            {t === 'ring' && <circle cx="30" cy="20" r="10" fill="none" stroke-width="5" />}
+            {t === 'blob' && <path d="M18 24c0-9 8-14 15-12s11 9 8 14-10 7-15 6-8-3-8-8z" />}
+            {t === 'grid' && <g>{[0,1,2].map(r => [0,1,2].map(c => <circle cx={22 + c*8} cy={12 + r*8} r="2.4" />))}</g>}
+          </svg>
+        </div>
+      ))}
+    </div>
+  </div>
+</Window>
+<style>
+  .site { padding: 16px 18px 18px; font-size: 11px; }
+  .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+  .name { font-weight: 600; letter-spacing: -0.02em; font-size: 12px; }
+  .nav { display: flex; gap: 12px; color: var(--muted); align-items: center; }
+  .nav i { font-style: normal; }
+  .nav b { font-weight: 400; color: var(--ink); }
+  .hello { font-size: 19px; line-height: 1.15; letter-spacing: -0.03em; font-weight: 600; margin-bottom: 16px; }
+  .hello em { font-family: var(--font-serif); font-weight: 400; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .tile { aspect-ratio: 3 / 2; border-radius: 8px; background: #f2f2f2; display: grid; place-items: center; }
+  .tile svg { width: 70%; fill: #c9c9c9; stroke: #c9c9c9; }
+  .tile:nth-child(2), .tile:nth-child(6) { background: var(--ink); }
+  .tile:nth-child(2) svg, .tile:nth-child(6) svg { fill: #fafafa; stroke: #fafafa; }
+  .tile:nth-child(4) { background: #e6e6e6; }
+  .tile:nth-child(4) svg { stroke: var(--ink); }
+</style>

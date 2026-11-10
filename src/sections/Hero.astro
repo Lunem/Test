@@ -1,0 +1,47 @@
+---
+import Button from '../components/ui/Button.astro';
+import HeroStack from '../components/mockups/HeroStack.astro';
+---
+<section class="hero" id="contenu">
+  <div class="container intro">
+    <p class="tag"><span class="pulse" aria-hidden="true"></span><span>Pour les étudiants en design<span class="more">, zéro prérequis en code</span></span></p>
+    <h1 class="display">
+      Décris ce que tu veux.
+      <span class="soft">Regarde-le se construire.</span>
+    </h1>
+    <p class="lead">
+      Le vibe coding, c'est piloter le code par l'intention&nbsp;: tu décris, tu regardes, tu ajustes.
+      Claude Code est l'agent qui lit ton projet, écrit le code, lance les tests et fait les commits,
+      directement depuis le terminal.
+    </p>
+    <div class="ctas">
+      <Button href="#commencer" arrow>Commencer le parcours</Button>
+      <Button href="#session" variant="ghost">Voir une session</Button>
+    </div>
+  </div>
+  <div class="container mock" id="session">
+    <HeroStack />
+  </div>
+</section>
+<style>
+  .hero { padding-top: clamp(64px, 9vw, 120px); }
+  .intro { text-align: center; display: grid; justify-items: center; }
+  .tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: 12px; color: var(--muted-strong);
+    border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-pill);
+    padding: 5px 12px 5px 10px; margin-bottom: 28px;
+  }
+  .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--ink); animation: pulse 2.4s var(--ease-out) infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(10,10,10,.35); } 70%, 100% { box-shadow: 0 0 0 7px rgba(10,10,10,0); } }
+  h1 { text-wrap: balance; }
+  h1 .soft { margin-top: .06em; }
+  .lead { max-width: 560px; margin-top: 28px; }
+  .ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 32px; }
+  .mock { margin-top: clamp(56px, 7vw, 88px); }
+  @media (max-width: 520px) {
+    .tag .more { display: none; }
+    .ctas { width: 100%; flex-direction: column; }
+    .ctas :global(.btn) { width: 100%; }
+  }
+</style>

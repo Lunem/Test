@@ -1,0 +1,59 @@
+---
+import Logo from '../components/ui/Logo.astro';
+import Button from '../components/ui/Button.astro';
+const links = [
+  ['Méthode', '#methode'], ['Workflow', '#workflow'], ['Prompts', '#prompts'],
+  ['Projets', '#projets'], ['Ressources', '#ressources'], ['FAQ', '#faq'],
+];
+---
+<header class="nav">
+  <div class="container row">
+    <Logo />
+    <nav aria-label="Principale" class="links">
+      {links.map(([label, href]) => <a href={href}>{label}</a>)}
+    </nav>
+    <div class="end">
+      <a class="gh" href="https://github.com/" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+      <Button href="#commencer" size="sm">Commencer</Button>
+      <details class="menu">
+        <summary aria-label="Ouvrir le menu"><span></span><span></span></summary>
+        <nav aria-label="Menu mobile" class="sheet">
+          {links.map(([label, href]) => <a href={href}>{label}</a>)}
+          <a href="https://github.com/" target="_blank" rel="noopener">GitHub ↗</a>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>
+<style>
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: saturate(1.4) blur(14px);
+    -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .row { height: 64px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; }
+  .links { display: flex; gap: 4px; }
+  .links a { padding: 6px 12px; border-radius: var(--r-pill); font-size: 0.875rem; color: var(--muted-strong); transition: color .2s, background .2s; }
+  .links a:hover { color: var(--ink); background: #f0f0f0; }
+  .end { display: flex; justify-content: flex-end; align-items: center; gap: 14px; }
+  .gh { font-size: 0.875rem; color: var(--muted-strong); }
+  .gh:hover { color: var(--ink); }
+
+  .menu { display: none; position: relative; }
+  .menu summary { list-style: none; cursor: pointer; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line-strong); display: grid; place-content: center; gap: 5px; }
+  .menu summary::-webkit-details-marker { display: none; }
+  .menu summary span { display: block; width: 14px; height: 1.5px; background: var(--ink); transition: transform .25s var(--ease-out); }
+  .menu[open] summary span:first-child { transform: translateY(3.25px) rotate(45deg); }
+  .menu[open] summary span:last-child { transform: translateY(-3.25px) rotate(-45deg); }
+  .sheet { position: absolute; right: 0; top: 46px; width: min(240px, calc(100vw - 32px)); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 6px; display: grid; }
+  .sheet a { padding: 10px 12px; border-radius: 8px; font-size: 0.9375rem; }
+  .sheet a + a { border-top: 1px solid var(--line); border-radius: 0; }
+
+  @media (max-width: 900px) {
+    .row { grid-template-columns: 1fr auto; }
+    .links, .gh { display: none; }
+    .menu { display: block; }
+  }
+</style>

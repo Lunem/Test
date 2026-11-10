@@ -1,0 +1,39 @@
+---
+import Window from './Window.astro';
+interface Props { class?: string }
+const { class: cls } = Astro.props;
+const lines: [string, string][] = [
+  [' ', '<section class="projets">'],
+  ['-', '  <p>Mes projets arrivent bientôt.</p>'],
+  ['+', '  <Grille items={projets} />'],
+  ['+', '  <button class="theme" aria-label="Mode sombre">'],
+  ['+', '    ◐'],
+  ['+', '  </button>'],
+  [' ', '</section>'],
+  [' ', ''],
+  [' ', '<style>'],
+  ['-', '  .projets { padding: 20px; }'],
+  ['+', '  .projets { padding: clamp(16px, 4vw, 48px); }'],
+  [' ', '</style>'],
+];
+---
+<Window title="diff · src/pages/index.astro" class={cls}>
+  <div class="diff" aria-hidden="true">
+    {lines.map(([op, text], i) => (
+      <div class:list={['ln', { add: op === '+', del: op === '-' }]}>
+        <span class="no">{i + 18}</span><span class="op">{op}</span><code>{text}</code>
+      </div>
+    ))}
+  </div>
+</Window>
+<style>
+  .diff { font-family: var(--font-mono); font-size: 11.5px; line-height: 1.75; padding: 10px 0 14px; }
+  .ln { display: grid; grid-template-columns: 36px 16px 1fr; padding-right: 14px; white-space: pre; color: var(--muted-strong); }
+  .no { color: #c4c4c4; text-align: right; padding-right: 10px; }
+  .op { color: var(--muted); }
+  code { font: inherit; overflow: hidden; text-overflow: ellipsis; }
+  .add { background: #ededed; color: var(--ink); }
+  .add .op { color: var(--ink); }
+  .del { background: #f7f7f7; color: #a3a3a3; }
+  .del code { text-decoration: line-through; text-decoration-color: #c4c4c4; }
+</style>

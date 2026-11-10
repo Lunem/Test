@@ -1,0 +1,27 @@
+---
+const names = ['HTML', 'CSS', 'JavaScript', 'React', 'Next.js', 'Astro', 'Svelte', 'Tailwind', 'p5.js', 'Three.js', 'Vite', 'Supabase', 'Python', 'Node.js', 'Git'];
+---
+<section class="band" aria-labelledby="band-title">
+  <div class="container">
+    <p class="eyebrow" id="band-title">fonctionne avec ta stack</p>
+  </div>
+  <div class="rail">
+    <ul class="track">
+      {[0, 1].map((k) => names.map((n) => <li aria-hidden={k === 1 ? 'true' : undefined}>{n}</li>))}
+    </ul>
+  </div>
+</section>
+<style>
+  .band { padding-block: clamp(72px, 8vw, 112px) 0; text-align: center; }
+  .eyebrow { margin-bottom: 22px; }
+  .rail {
+    overflow: hidden; max-width: 1040px; margin-inline: auto;
+    mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+  }
+  .track { list-style: none; margin: 0; padding: 0; display: flex; width: max-content; animation: slide 48s linear infinite; }
+  .track li { padding-inline: 26px; font-size: 1.375rem; font-weight: 600; letter-spacing: -0.03em; color: #c4c4c4; white-space: nowrap; transition: color .2s; }
+  .track li:hover { color: var(--ink); }
+  .rail:hover .track { animation-play-state: paused; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+</style>

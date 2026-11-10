@@ -1,0 +1,33 @@
+---
+import Terminal from './Terminal.astro';
+import DiffPanel from './DiffPanel.astro';
+import BrowserPreview from './BrowserPreview.astro';
+---
+<div class="stack">
+  <BrowserPreview class="w back" />
+  <DiffPanel class="w mid" />
+  <Terminal class="w front" />
+</div>
+<style>
+  .stack { position: relative; height: 600px; max-width: 1040px; margin-inline: auto; }
+  /* L'unique ombre de la page : douce, sous la pile */
+  .stack::after {
+    content: ''; position: absolute; z-index: -1; left: 12%; right: 12%; bottom: 10px; height: 60px;
+    background: rgba(0, 0, 0, 0.22); filter: blur(42px); border-radius: 50%;
+  }
+  .stack :global(.w) { position: absolute; transition: transform .7s var(--ease-out); }
+  .stack :global(.back)  { width: 52%; right: 0; top: 0; transform: rotate(2.2deg); }
+  .stack :global(.mid)   { width: 46%; left: 0; top: 56px; transform: rotate(-2.4deg); }
+  .stack :global(.front) { width: 56%; left: 50%; top: 128px; transform: translateX(-46%) rotate(-0.6deg); }
+  .stack:hover :global(.back)  { transform: rotate(3deg) translate(10px, -6px); }
+  .stack:hover :global(.mid)   { transform: rotate(-3.2deg) translate(-10px, -2px); }
+  .stack:hover :global(.front) { transform: translateX(-46%) rotate(0deg) translateY(-4px); }
+
+  @media (max-width: 900px) {
+    .stack { height: auto; padding-top: 150px; max-width: 560px; }
+    .stack :global(.front) { position: relative; width: 100%; left: 0; top: 0; transform: rotate(-0.6deg); }
+    .stack:hover :global(.front) { transform: rotate(0deg); }
+    .stack :global(.back) { width: 80%; right: 0; top: 0; }
+    .stack :global(.mid) { width: 72%; left: 0; top: 40px; }
+  }
+</style>

@@ -1,0 +1,29 @@
+---
+interface Props { href: string; variant?: 'solid' | 'ghost' | 'light' | 'ghost-dark'; size?: 'sm' | 'md'; arrow?: boolean }
+const { href, variant = 'solid', size = 'md', arrow = false } = Astro.props;
+---
+<a href={href} class:list={['btn', variant, size]}>
+  <slot />
+  {arrow && <span class="arr" aria-hidden="true">→</span>}
+</a>
+<style>
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    border-radius: var(--r-pill); font-weight: 500; letter-spacing: -0.01em; white-space: nowrap;
+    border: 1px solid transparent;
+    transition: background .2s, color .2s, border-color .2s, transform .2s var(--ease-out);
+  }
+  .md { height: 46px; padding: 0 22px; font-size: 0.9375rem; }
+  .sm { height: 36px; padding: 0 16px; font-size: 0.8125rem; }
+  .solid { background: var(--ink); color: var(--bg); }
+  .solid:hover { background: var(--ink-soft); }
+  .ghost { border-color: var(--line-strong); color: var(--ink); background: transparent; }
+  .ghost:hover { border-color: var(--ink); }
+  .light { background: var(--dark-ink); color: var(--dark); }
+  .light:hover { background: #fff; }
+  .ghost-dark { border-color: var(--dark-line); color: var(--dark-ink); }
+  .ghost-dark:hover { border-color: var(--dark-muted); }
+  .btn:active { transform: translateY(1px) scale(.98); }
+  .arr { transition: transform .25s var(--ease-out); }
+  .btn:hover .arr { transform: translateX(3px); }
+</style>

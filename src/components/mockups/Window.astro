@@ -1,0 +1,22 @@
+---
+interface Props { title: string; tone?: 'light' | 'dark'; class?: string }
+const { title, tone = 'light', class: cls } = Astro.props;
+---
+<div class:list={['win', tone, cls]}>
+  <div class="bar">
+    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="title">{title}</span>
+    <slot name="bar-end" />
+  </div>
+  <div class="body"><slot /></div>
+</div>
+<style>
+  .win { border-radius: 16px; overflow: hidden; border: 1px solid var(--line-strong); background: var(--surface); }
+  .bar { height: 38px; display: flex; align-items: center; gap: 12px; padding: 0 14px; border-bottom: 1px solid var(--line); background: #f6f6f6; }
+  .dots { display: flex; gap: 6px; }
+  .dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); }
+  .title { font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .dark { background: var(--dark); border-color: var(--dark-3); }
+  .dark .bar { background: var(--dark-2); border-color: var(--dark-3); }
+  .dark .dots i { background: #333; }
+</style>
